@@ -1,0 +1,77 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Użytkownicy i uprawnienia
+    </mat-card-title>
+    <mat-card-subtitle>
+      Jedno miejsce, by zarządzać wszystkimi użytkownikami.
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="d-flex flex-column">
+      <mat-spinner class="m-auto" [hidden]="dataFetched"></mat-spinner>
+
+      <div class="d-flex flex-column justify-content-center align-items-center" [hidden]="!dataFetched">
+        <mat-form-field class="align-items-start">
+          <mat-label>Filtruj wyniki</mat-label>
+          <input (keyup)="applyFilter($event)" matInput placeholder="Przykład: Jan Kowalski">
+
+        </mat-form-field>
+        <div class="material-custom-table-responsive">
+        <table [dataSource]="dataSource" class="mat-elevation-z2" mat-table matSort>
+
+          <ng-container matColumnDef="username">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Login użytkownika</th>
+            <td *matCellDef="let user" mat-cell> {{user.username}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fullName">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Nazwa użytkownika</th>
+            <td *matCellDef="let user" mat-cell> {{user.fullName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Adres email</th>
+            <td *matCellDef="let user" mat-cell> {{user.email}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="enabled">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Czy aktywne konto?</th>
+            <td *matCellDef="let user" mat-cell>
+              <i *ngIf="user.enabled" class="fas fa-toggle-on active-user-account fa-lg" matTooltip="Konto aktywne"></i>
+              <i *ngIf="!user.enabled" class="fas fa-toggle-off inactive-user-account fa-lg"
+                 matTooltip="Konto nieaktywne"></i>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="userAuthorities">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Uprawnienia</th>
+            <td *matCellDef="let user" mat-cell> {{ user.userAuthorities | customUserAuthoritiesDtoPipe }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Akcje</th>
+            <td *matCellDef="let user" mat-cell>
+              <a [routerLink]="[user.id, 'edit']">
+                <button mat-raised-button color="primary" class="m-1">
+                  <mat-icon>edit</mat-icon>
+                  Edytuj
+                </button>
+              </a>
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageSize]="customPageSize" class="my-2"
+                       showFirstLastButtons></mat-paginator>
+
+      </div>
+
+
+    </div>
+
+  </mat-card-content>
+</mat-card>

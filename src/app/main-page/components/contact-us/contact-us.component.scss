@@ -1,0 +1,35 @@
+.example-full-width {
+  width: 100%;
+}
+
+@media (min-width: 576px){
+
+  .example-form {
+    width: 500px;
+  }
+
+}
+
+@media (min-width: 768px){
+
+  .example-form {
+    width: 500px;
+  }
+
+}
+
+@media (min-width: 992px){
+
+  .example-form {
+    width: 500px;
+  }
+
+}
+
+@media (min-width: 1200px){
+
+  .example-form {
+    width: 700px;
+  }
+
+}

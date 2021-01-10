@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="d-flex flex-column justify-content-center align-items-center m-2 p-2">
+    <mat-card class="d-flex flex-column align-items-center">
+      <mat-card-header>
+        <mat-card-title>
+          <h3 class="text-center">Masz pytania? Napisz do nas!</h3>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <p class="text-center">Z przyjemnością odpowiemy na Twoje pytania</p>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="text-center">
+        <form class="example-form d-flex flex-column" [formGroup]="contactUsForm" novalidate>
+          <mat-form-field class="example-full-width">
+            <mat-label>Imie / Nazwa firmy</mat-label>
+            <input matInput type="text" placeholder="Jan / Moja firma" formControlName="name">
+            <mat-error *ngIf="contactUsForm.get('name').hasError('required')">
+              Imie / Nazwa firmy <strong>jest wymagane</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Adres email</mat-label>
+            <input matInput type="text" placeholder="Przykład: mojmail@domena.pl" formControlName="email">
+            <mat-error *ngIf="contactUsForm.get('email').hasError('email')
+              && !contactUsForm.get('email').hasError('required')">
+              Wprowadź poprawny adres email
+            </mat-error>
+            <mat-error *ngIf="contactUsForm.get('email').hasError('required')">
+              Email jest <strong>wymagany</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Wiadomość</mat-label>
+            <textarea matInput  placeholder="Przykład: Mam pytanie dotyczące oferty dla firm..." formControlName="message"></textarea>
+            <mat-error *ngIf="contactUsForm.get('message').hasError('required')">
+              Wiadomość <strong>jest wymagana</strong>
+            </mat-error>
+          </mat-form-field>
+          <div class="mt-2 p-2 d-flex flex-row justify-content-between">
+            <button mat-raised-button class="mr-2 mr-sm-0" (click)="onSubmit()">Wyślij wiadomość</button>
+            <button mat-raised-button (click)="clearForm()">Wyczyść formularz</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="d-flex flex-column justify-content-center align-items-center m-2 p-2">
+    <mat-spinner class="m-auto" [hidden]="dataFetched"></mat-spinner>
+    <div *ngIf="isAccountActivated && dataFetched">
+      <mat-card class="d-flex flex-column align-items-center">
+        <mat-card-header>
+          <mat-card-title>
+            <h3 class="text-center">Twoje konto zostało poprawnie aktywowane</h3>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <p class="text-center">Kliknij w poniższy link <a class="text-decoration-none" [routerLink]="['/pages/login']">, aby się zalogować.</a></p>
+          </mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+    <div *ngIf="!isAccountActivated && dataFetched">
+      <mat-card class="d-flex flex-column align-items-center">
+        <mat-card-header>
+          <mat-card-title>
+            <h3 class="text-center">Upsss... wystąpił problem podczas aktywacji konta</h3>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <p class="text-center">Twój kod aktywacyjny nie jest poprawny lub został już użyty. Skontaktuj się z naszym działem wsparcia, aby uzyskać pomoc.</p>
+          </mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<h2 mat-dialog-title>Stwórz nową fakturę</h2>
+<mat-dialog-content>
+  <form [formGroup]="newInvoiceForm" novalidate>
+    <mat-form-field appearance="fill" class="custom-input-field mb-2">
+      <mat-label>Wybierz datę wystawienia faktury</mat-label>
+      <input [matDatepicker]="picker" formControlName="creationDate" matInput>
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="newInvoiceForm.get('creationDate').hasError('required')">
+        Data wystawienia faktury jest <strong>wymagana</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-input-field mb-2" hintLabel="Maksymalna ilość znaków: 200">
+      <mat-label>Podaj opis faktury</mat-label>
+      <input #input formControlName="invoiceDescription" matInput maxlength="200"
+             placeholder="Przykład: Opłata za usługę LinkShorter w okresie rozliczeniowym..." type="text">
+      <mat-hint align="end">{{input.value?.length || 0}}/200</mat-hint>
+      <mat-error *ngIf="newInvoiceForm.get('invoiceDescription').hasError('required')">
+        Opis faktury jest <strong>wymagany</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-input-field mb-2">
+      <mat-label>Waluta</mat-label>
+      <mat-select [compareWith]="compareCurrency" formControlName="currency">
+        <mat-option *ngFor="let currency of currencies" [value]="currency">
+          {{ currency.currencyCode }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-input-field mb-2">
+      <mat-label>Kwota netto</mat-label>
+      <input (change)="onNetAmountChange()" formControlName="netAmount" matInput type="number">
+      <mat-error *ngIf="newInvoiceForm.get('netAmount').hasError('required')">
+        Kwota netto jest <strong>wymagana</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-input-field mb-2">
+      <mat-label>Procent podatku</mat-label>
+      <input (change)="onTaxPercentageChange()" class="text-right" formControlName="taxPercentage" matInput
+             type="number">
+      <span matSuffix> % kwoty netto</span>
+      <mat-error *ngIf="newInvoiceForm.get('taxPercentage').hasError('required')">
+        Procent podatku jest <strong>wymagany</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-input-field mb-2">
+      <mat-label>Kwota podatku</mat-label>
+      <input formControlName="taxAmount" matInput type="number">
+      <mat-error *ngIf="newInvoiceForm.get('taxAmount').hasError('required')">
+        Kwota podatku jest <strong>wymagana</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-input-field mb-2">
+      <mat-label>Kwota brutto</mat-label>
+      <input formControlName="grossAmount" matInput type="number">
+      <mat-error *ngIf="newInvoiceForm.get('grossAmount').hasError('required')">
+        Kwota brutto jest <strong>wymagana</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-input-field mb-2">
+      <mat-label>Wybierz adresata faktury</mat-label>
+      <input [matAutocomplete]="auto" formControlName="user" matInput type="text">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUserAutocompleteFunction" autoActiveFirstOption>
+        <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+          {{displayUserAutocompleteFunction(user)}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="newInvoiceForm.get('user').hasError('required')">
+        Wybranie adresata faktury jest <strong>wymagane</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button (click)="onSubmit()" color="primary" mat-button>
+    <mat-icon>save</mat-icon>
+    Stwórz fakturę
+  </button>
+  <button (click)="dismiss()" color="primary" mat-button>
+    <mat-icon>cancel</mat-icon>
+    Anuluj
+  </button>
+</mat-dialog-actions>

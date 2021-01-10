@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <button class="sidenav-toggle" mat-button (click)="toggleSidenav.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="example-spacer"></span>
+
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="toggleDirection.emit()">Zmień stronę menu</button>
+  </mat-menu>
+</mat-toolbar>

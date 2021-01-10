@@ -1,0 +1,110 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title  *ngIf="dataFetched">
+      Aktywności krótkiego linku {{ link.shortLink }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      Zobacz szczegółowe statystyki dotyczące aktywności Twojego linku
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="d-flex flex-column example-container">
+
+      <div class="d-flex flex-row justify-content-end mb-3">
+        <button mat-raised-button color="primary" (click)="backToAllLinks()">Wróć do Twoich linków</button>
+      </div>
+
+      <!-- link activity table start -->
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <mat-form-field class="align-items-start">
+          <mat-label>Filtruj wyniki</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Przykład: Chrome">
+
+        </mat-form-field>
+        <mat-spinner class="m-auto" [hidden]="dataFetched"></mat-spinner>
+
+        <div class="material-custom-table-responsive">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2"  [hidden]="!dataFetched">
+
+          <ng-container matColumnDef="activityDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data kliknięcia w link </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.activityDate | date: 'yyyy-MM-dd HH:mm:ss'}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="deviceClass">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Klasa urządzenia </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.deviceClass}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="deviceName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa urządzenia </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.deviceName}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="deviceBrand">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Producent urządzenia </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.deviceBrand}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="osClass">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> OS urządzenia </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.osClass}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="osName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa OS </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.osName}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="osVersion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Wersja OS </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.osVersion}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="agentClass">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Klasa przeglądarki </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.agentClass}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="agentName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nazwa przeglądarki </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.agentName}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="agentVersionMajor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Wersja przeglądarki </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.agentVersionMajor}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="agentVersion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Dokładna wersja przeglądarki </th>
+            <td mat-cell *matCellDef="let linkActivity"> {{linkActivity.agentVersion}} </td>
+          </ng-container>
+
+
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        </div>
+
+        <mat-paginator class="my-2" [pageSize]="customPageSize" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+      <!-- link activities table stop -->
+
+
+    </div>
+
+  </mat-card-content>
+</mat-card>

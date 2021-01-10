@@ -1,0 +1,60 @@
+<mat-spinner class="m-auto" *ngIf="!dataFetched"></mat-spinner>
+<mat-card *ngIf="dataFetched">
+  <mat-card-header>
+    <mat-card-title>
+      Edytuj link
+    </mat-card-title>
+    <mat-card-subtitle>
+      Nanieś zmiany, jeśli chcesz coś poprawić
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="editLinkForm" (ngSubmit)="saveLink()">
+      <mat-form-field appearance="fill" class="custom-input-field">
+        <mat-label>Wpisz tutaj swój krótki link</mat-label>
+        <input matInput type="url" placeholder="Przykład: mega-promocja" formControlName="shortLink">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="custom-input-field">
+        <mat-label>Wpisz tutaj swój długi link</mat-label>
+        <input matInput type="url" placeholder="Przykład: https://google.com" formControlName="longLink">
+        <mat-error *ngIf="editLinkForm.get('longLink').hasError('pattern')">
+          Wpisz poprawny link
+        </mat-error>
+        <mat-error *ngIf="editLinkForm.get('longLink').hasError('required')">
+          Wpisanie długiego linku jest wymagane
+        </mat-error>
+        <mat-error class="mt-2" *ngIf="editLinkForm.get('longLink').hasError('isShortLinkAlreadyShortened')">
+          Nie możesz skrócić skróconego już linku w naszym serwisie. On nie może być krótszy ;)
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <br>
+      <br>
+      <mat-form-field appearance="fill" class="custom-input-field">
+        <mat-label>Data utworzenia linku</mat-label>
+        <input matInput [matDatepicker]="creationDatePicker" formControlName="creationDate">
+        <mat-datepicker-toggle matSuffix [for]="creationDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #creationDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="custom-input-field">
+        <mat-label>Wybierz datę wygaśnięcia linku</mat-label>
+        <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="expirationDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="editLinkForm.get('expirationDate').hasError('required')">
+          Podanie daty wygaśnięcia linku jest wymagane
+        </mat-error>
+      </mat-form-field>
+      <mat-checkbox class="custom-input-field" formControlName="active">Czy aktywować link?</mat-checkbox>
+    </form>
+  </mat-card-content>
+  <mat-dialog-actions>
+    <button mat-button color="primary" (click)="saveLink()">
+      <mat-icon>save</mat-icon>Zapisz zmiany
+    </button>
+    <button routerLink=".." mat-button color="primary">
+      <mat-icon>cancel</mat-icon>Anuluj
+    </button>
+  </mat-dialog-actions>
+</mat-card>
+

@@ -1,0 +1,34 @@
+.flex-equal > * {
+  -ms-flex: 1;
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .flex-md-equal > * {
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+.overflow-hidden { overflow: hidden; }
+
+/* Styles for icons */
+.custom-icon {
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.custom-icon:hover {
+  opacity: 1;
+}
+
+.facebook-icon:hover {
+  color: dodgerblue;
+}
+
+.twitter-icon:hover {
+  color: dodgerblue;
+}
+
+.linkedin-icon:hover {
+  color: steelblue;
+}

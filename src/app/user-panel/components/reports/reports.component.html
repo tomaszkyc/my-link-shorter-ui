@@ -1,0 +1,87 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Raporty
+    </mat-card-title>
+    <mat-card-subtitle>
+      Sprawdź kto klikał w Twój link poprzez raporty
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="d-flex flex-column">
+      <mat-spinner [hidden]="dataFetched" class="m-auto"></mat-spinner>
+
+      <div class="d-flex flex-row justify-content-center align-items-center">
+        <form [formGroup]="reportsForm" [hidden]="!dataFetched" class="example-form" novalidate>
+
+          <mat-form-field class="example-full-width mb-2">
+            <mat-label>Grupowanie danych</mat-label>
+            <mat-select [compareWith]="compareGroupByDtos" formControlName="groupByDto">
+              <mat-option *ngFor="let groupByDto of groupByDtos | async" [value]="groupByDto">
+                {{ groupByDto.displayValue }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="reportsForm.get('groupByDto').hasError('required')">
+              Podanie grupowania danych jest <strong>wymagane</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Wybierz zakres dat aktywności dla pokazania w raporcie</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input formControlName="dateFrom" matStartDate placeholder="Data początkowa">
+              <input formControlName="dateTo" matEndDate placeholder="Data końcowa">
+            </mat-date-range-input>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error *ngIf="reportsForm.get('dateFrom').hasError('required')">
+              Data początkowa jest <strong>wymagana</strong>
+            </mat-error>
+            <mat-error *ngIf="reportsForm.get('dateFrom').hasError('matDatepickerParse')">
+              Niewłaściwa data początkowa
+            </mat-error>
+            <mat-error *ngIf="reportsForm.get('dateTo').hasError('required')">
+              Data końcowa jest <strong>wymagana</strong>
+            </mat-error>
+            <mat-error *ngIf="reportsForm.get('dateTo').hasError('matDatepickerParse')">
+              Niewłaściwa data końcowa
+            </mat-error>
+          </mat-form-field>
+          <div class="mt-2 p-2 d-flex flex-row justify-content-center">
+            <button (click)="generateReportClick()" color="primary" mat-raised-button mat-raised-button>Generuj raport
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <apx-chart *ngIf="groupedPieChartOptions"
+                   [chart]="groupedPieChartOptions.chart"
+                   [labels]="groupedPieChartOptions.labels"
+                   [noData]="groupedPieChartOptions.noData"
+                   [responsive]="groupedPieChartOptions.responsive"
+                   [series]="groupedPieChartOptions.series"
+                   [title]="groupedPieChartOptions.title"
+        ></apx-chart>
+        <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center">
+          <apx-chart *ngIf="datesLineChartOptions"
+                     [chart]="datesLineChartOptions.chart"
+                     [dataLabels]="datesLineChartOptions.dataLabels"
+                     [grid]="datesLineChartOptions.grid"
+                     [noData]="datesLineChartOptions.noData"
+                     [series]="datesLineChartOptions.series"
+                     [stroke]="datesLineChartOptions.stroke"
+                     [title]="datesLineChartOptions.title"
+                     [xaxis]="datesLineChartOptions.xaxis"
+          ></apx-chart>
+          <apx-chart *ngIf="dayHoursPieChartOptions"
+                     [chart]="dayHoursPieChartOptions.chart"
+                     [labels]="dayHoursPieChartOptions.labels"
+                     [noData]="dayHoursPieChartOptions.noData"
+                     [responsive]="dayHoursPieChartOptions.responsive"
+                     [series]="dayHoursPieChartOptions.series"
+                     [title]="dayHoursPieChartOptions.title"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

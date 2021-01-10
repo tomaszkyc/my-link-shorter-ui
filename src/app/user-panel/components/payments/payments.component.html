@@ -1,0 +1,83 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Rozliczenia i płatności
+    </mat-card-title>
+    <mat-card-subtitle>
+      Twoje płatności i rozliczenia - wszystko w jednym miejscu.
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="d-flex flex-column">
+      <mat-spinner [hidden]="dataFetched" class="m-auto"></mat-spinner>
+
+      <div *ngIf="hasAnyAuthority(['admin'])" class="d-flex flex-row justify-content-end mb-3">
+        <button (click)="openCreateNewInvoiceDialog()" color="primary" mat-raised-button>Stwórz nową fakturę</button>
+      </div>
+
+      <div [hidden]="!dataFetched" class="d-flex flex-column justify-content-center align-items-center">
+        <mat-form-field class="align-items-start">
+          <mat-label>Filtruj wyniki</mat-label>
+          <input (keyup)="applyFilter($event)" class="example-full-width" matInput
+                 placeholder="Przykład: numer faktury, data wystawienia">
+        </mat-form-field>
+
+        <div class="material-custom-table-responsive">
+        <table [dataSource]="dataSource" class="mat-elevation-z2" mat-table matSort>
+
+          <ng-container matColumnDef="invoiceNumber">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Numer faktury</th>
+            <td *matCellDef="let invoice" mat-cell> {{invoice.invoiceNumber}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="creationDate">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Data utworzenia</th>
+            <td *matCellDef="let invoice" mat-cell> {{invoice.creationDate | date: 'yyy-MM-dd' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="invoiceDescription">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Opis faktury</th>
+            <td *matCellDef="let invoice" mat-cell> {{invoice.invoiceDescription}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="currency">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Waluta</th>
+            <td *matCellDef="let invoice" mat-cell> {{invoice.currency}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="grossAmount">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Kwota brutto</th>
+            <td *matCellDef="let invoice" mat-cell> {{invoice.grossAmount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Akcje</th>
+            <td *matCellDef="let invoice" mat-cell>
+              <a [routerLink]="[invoice.id, 'details']">
+                <button class="m-1" color="primary" mat-raised-button>
+                  <mat-icon>info</mat-icon>
+                  Szczegóły
+                </button>
+              </a>
+              <button *ngIf="!isInvoicePaid(invoice)" (click)="redirectToPaymentProviderSite(invoice)" class="m-1" mat-raised-button>
+                <mat-icon>payment</mat-icon>
+                Opłać fakturę
+              </button>
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        </table>
+        </div>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageSize]="customPageSize" class="my-2"
+                       showFirstLastButtons></mat-paginator>
+
+      </div>
+
+
+    </div>
+
+  </mat-card-content>
+</mat-card>

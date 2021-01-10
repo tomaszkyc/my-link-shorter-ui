@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+<mat-sidenav-container [dir]="direction"
+                       class="app-sidenav-container">
+  <mat-sidenav #sidenav [mode]="isScreenSmall() ? 'over' : 'side'" [opened]="!isScreenSmall()"
+               class="app-sidenav mat-elevation-z10"
+               mode="push">
+    <mat-toolbar color="primary">
+      Menu
+    </mat-toolbar>
+    <mat-nav-list>
+      <a *ngIf="hasAnyAuthority(['admin', 'registered-user', 'premium-user'])" [routerLink]="['links']" mat-list-item>Twoje
+        linki <i class="fas fa-link m-2"></i></a>
+      <a *ngIf="hasAnyAuthority(['admin', 'premium-user'])" [routerLink]="['reports']" mat-list-item>Raporty <i
+        class="fas fa-chart-bar m-2"></i></a>
+      <a *ngIf="hasAnyAuthority(['admin'])" [routerLink]="['users']" mat-list-item>Użytkownicy i uprawnienia <i
+        class="fas fa-users m-2"></i></a>
+      <a *ngIf="hasAnyAuthority(['admin', 'premium-user'])" [routerLink]="['receipts-and-payments']"
+         mat-list-item>Rozliczenia i płatności<i
+        class="fas fa-dollar-sign m-2"></i></a>
+      <a *ngIf="hasAnyAuthority(['admin', 'registered-user', 'premium-user'])" [routerLink]="['user-settings']"
+         mat-list-item>Ustawienia użytkownika<i
+        class="fas fa-cogs m-2"></i></a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="app-sidenav-content">
+    <app-toolbar (toggleDirection)="toggleDirection()"
+                 (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+    <div class="wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

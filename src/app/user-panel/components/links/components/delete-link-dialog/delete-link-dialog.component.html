@@ -1,0 +1,8 @@
+<h2 class="text-center" mat-dialog-title>Usuwanie linku</h2>
+<div mat-dialog-content>
+  <p>Czy na pewno chcesz usunąć krótki link: {{ data.shortLink }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="deleteLink()">Usuń link</button>
+  <button mat-button (click)="cancel()">Anuluj</button>
+</div>

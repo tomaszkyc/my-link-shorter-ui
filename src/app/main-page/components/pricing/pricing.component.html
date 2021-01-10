@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Cennik</h1>
+  <p class="lead">Szybko twórz krótkie linki dla twoich potencjalnych klientów. Wybierz jeden z naszych planów i <strong>skróć każdy link.</strong></p>
+</div>
+
+<div class="container">
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Darmowe</h4>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <h1 class="card-title pricing-card-title">0 PLN <small class="text-muted">/ msc</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Tworzenie do 20 linków przypisanych do Twojego konta</li>
+          <li>Zarządzanie stworzonymi linkami</li>
+          <li>Dostępne wsparcie w centrum pomocy</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary mt-auto" [routerLink]="['/pages/register']">Zarejestruj się za darmo</button>
+      </div>
+    </div>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Pro</h4>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <h1 class="card-title pricing-card-title">49 PLN <small class="text-muted">/ msc</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Tworzenie do 2000 linków przypisanych do Twojego konta</li>
+          <li>Tworzenie własnych krótkich linków</li>
+          <li>Zarządzanie stworzonymi linkami</li>
+          <li>Generowanie kodów QR dla linków</li>
+          <li>Moduł płatności do łatwego zarządzania stanem konta</li>
+          <li>Tworzenie własnych raportów</li>
+          <li>Dostępne wsparcie w centrum pomocy</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-primary mt-auto" [routerLink]="['/pages/register']">Zarejestruj się</button>
+      </div>
+    </div>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Dla firm</h4>
+      </div>
+      <div class="card-body d-flex flex-column">
+        <h1 class="card-title pricing-card-title">Zapytaj o wycenę<small class="text-muted"></small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>Nielimitowana ilość tworzenia krótkich linków</li>
+          <li>Tworzenie własnych krótkich linków</li>
+          <li>Zarządzanie stworzonymi linkami</li>
+          <li>Moduł płatności do łatwego zarządzania stanem konta</li>
+          <li>Tworzenie własnych raportów</li>
+          <li>Dostępne wsparcie w centrum pomocy</li>
+        </ul>
+        <button type="button" class="btn btn-lg btn-block btn-primary mt-auto" [routerLink]="['/pages/contact-us']">Napisz do nas</button>
+      </div>
+    </div>
+  </div>
+</div>

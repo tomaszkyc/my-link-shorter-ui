@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+  <a class="navbar-brand text-reset" [routerLink]="['/']">LinkShorter</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav mr-auto">
+      <a class="nav-item nav-link" [routerLink]="['/pages/features']" [routerLinkActive]="['active']">Funkcje</a>
+      <a class="nav-item nav-link" [routerLink]="['/pages/enterprise']" [routerLinkActive]="['active']">Dla firm</a>
+      <a class="nav-item nav-link" [routerLink]="['/pages/support']" [routerLinkActive]="['active']">Wsparcie</a>
+      <a class="nav-item nav-link" [routerLink]="['/pages/pricing']" [routerLinkActive]="['active']">Cennik</a>
+      <a class="nav-item nav-link" [routerLink]="['/pages/contact-us']" [routerLinkActive]="['active']">Kontakt</a>
+      <a class="nav-item nav-link" [routerLink]="['/app']" [routerLinkActive]="['active']" *ngIf="isLoggedIn">Panel użytkownika</a>
+    </div>
+    <div class="navbar-nav">
+      <div *ngIf="!isLoggedIn">
+        <a class="btn btn-outline-success m-1" [routerLink]="['/pages/login']">Zaloguj się</a>
+        <a class="btn btn-outline-primary m-1" [routerLink]="['/pages/register']">Zarejestruj się</a>
+      </div>
+      <div  *ngIf="isLoggedIn">
+        <a class="btn btn-outline-danger m-1" [routerLink]="['/pages/login']" (click)="logout()">Wyloguj</a>
+      </div>
+    </div>
+  </div>
+</nav>

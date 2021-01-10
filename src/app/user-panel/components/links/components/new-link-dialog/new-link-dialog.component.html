@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Stwórz nowy link</h2>
+<mat-dialog-content>
+  <form [formGroup]="newLinkForm" novalidate>
+    <mat-form-field *ngIf="hasAnyAuthority(['premium-user', 'admin'])" appearance="fill" class="custom-input-field">
+      <mat-label>Wpisz tutaj swój krótki link</mat-label>
+      <input formControlName="shortLink" matInput placeholder="Przykład: mega-promocja" type="url">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-input-field">
+      <mat-label>Wpisz tutaj swój długi link</mat-label>
+      <input formControlName="longLink" matInput placeholder="Przykład: https://google.com" type="url">
+      <mat-error *ngIf="newLinkForm.get('longLink').hasError('pattern')">
+        Wpisz poprawny link
+      </mat-error>
+      <mat-error *ngIf="newLinkForm.get('longLink').hasError('required')">
+        Wpisanie długiego linku jest wymagane
+      </mat-error>
+      <mat-error *ngIf="newLinkForm.get('longLink').hasError('isShortLinkAlreadyShortened')" class="mt-2">
+        Nie możesz skrócić skróconego już linku w naszym serwisie. On nie może być krótszy ;)
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <br>
+    <mat-form-field appearance="fill" class="custom-input-field">
+      <mat-label>Wybierz datę wygaśnięcia linku</mat-label>
+      <input [matDatepicker]="picker" [min]="minDate" formControlName="expirationDate" matInput>
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="newLinkForm.get('expirationDate').hasError('required')">
+        Podanie daty wygaśnięcia linku jest wymagane
+      </mat-error>
+    </mat-form-field>
+    <mat-checkbox class="custom-input-field" formControlName="active">Czy aktywować link?</mat-checkbox>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button (click)="createLink()" color="primary" mat-button>
+    <mat-icon>save</mat-icon>
+    Stwórz link
+  </button>
+  <button (click)="dismiss()" color="primary" mat-button>
+    <mat-icon>cancel</mat-icon>
+    Anuluj
+  </button>
+</mat-dialog-actions>

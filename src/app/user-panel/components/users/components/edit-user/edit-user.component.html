@@ -1,0 +1,66 @@
+<mat-card>
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <mat-card-header>
+      <mat-card-title *ngIf="userDto && dataFetched" class="text-center">
+        Ustawienia użytkownika {{ userDto.username }}
+      </mat-card-title>
+    </mat-card-header>
+  </div>
+  <mat-card-content class="text-center">
+    <mat-spinner [hidden]="dataFetched" class="m-auto"></mat-spinner>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <form [formGroup]="editUserForm" [hidden]="!dataFetched" class="example-form" novalidate>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Id użytkownika</mat-label>
+          <input formControlName="id" matInput type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Login użytkownika</mat-label>
+          <input formControlName="username" matInput type="text">
+          <mat-error *ngIf="editUserForm.get('username').hasError('required')">
+            Login użytkownika jest <strong>wymagana</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Nazwa użytkownika</mat-label>
+          <input formControlName="fullName" matInput type="text">
+          <mat-error *ngIf="editUserForm.get('fullName').hasError('required')">
+            Nazwa użytkownika jest <strong>wymagana</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Adres email</mat-label>
+          <input formControlName="email" matInput type="text">
+          <mat-error *ngIf="editUserForm.get('email').hasError('required')">
+            Adres email jest <strong>wymagany</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width mb-2">
+          <mat-label>Uprawnienia użytkownika</mat-label>
+          <mat-select [compareWith]="compareUserAuthorityDtos" formControlName="userAuthorities"
+                      multiple placeholder="Uprawnienia użytownika">
+            <mat-option *ngFor="let userAuthorityDto of userAuthorities" [value]="userAuthorityDto">
+              {{ userAuthorityDto.displayName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-checkbox class="example-full-width mb-2" formControlName="enabled">Czy konto aktywne?</mat-checkbox>
+
+        <div class="mt-2 p-2 d-flex flex-row justify-content-between">
+          <button (click)="onSubmit()" color="primary" mat-raised-button mat-raised-button>Zapisz zmiany</button>
+          <button (click)="goBackToUsersPage()" mat-raised-button mat-raised-button>Porzuć zmiany</button>
+        </div>
+      </form>
+
+
+
+    </div>
+
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+
+  <div class="d-flex flex-column justify-content-center align-items-center m-2 p-2">
+    <div>
+      <mat-card class="d-flex flex-column align-items-center">
+        <mat-card-header>
+          <mat-card-title>
+            <h3 class="text-center">Stwórz swoje konto</h3>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <p class="text-center">Masz już konto? <a class="text-decoration-none" [routerLink]="['/pages/login']">Zaloguj się</a></p>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="text-center">
+          <form class="example-form" [formGroup]="registerUserAccountForm" novalidate>
+            <mat-form-field class="example-full-width">
+              <mat-label>Twoje imie / Nazwa Twojej firmy</mat-label>
+              <input matInput type="text" placeholder="Przykład: Jan / Moja Firma" formControlName="name">
+              <mat-error *ngIf="registerUserAccountForm.get('name').hasError('required')">
+                Twoje imie / Nazwa Twojej firmy jest <strong>wymagane</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Adres email</mat-label>
+              <input matInput type="text" placeholder="Przykład: mojmail@domena.pl" formControlName="email">
+              <mat-error *ngIf="registerUserAccountForm.get('email').hasError('email')
+              && !registerUserAccountForm.get('email').hasError('required')">
+                Wprowadź poprawny adres email
+              </mat-error>
+              <mat-error *ngIf="registerUserAccountForm.get('email').hasError('required')">
+                Email jest <strong>wymagany</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Hasło</mat-label>
+              <input matInput type="password" placeholder="***********" formControlName="password">
+              <mat-hint>
+                <div class="d-flex flex-row justify-content-around">
+                  <div>
+                    <ul>
+                      <li [className]="this.testPasswordLength(this.registerUserAccountForm.get('password').value)
+                       ? 'passed-condition': ''">6 lub więcej znaków (aktualna długość: {{this.getPasswordLength()}})</li>
+                      <li [className]="this.testPasswordOneLetter(this.registerUserAccountForm.get('password').value)
+                      ? 'passed-condition': ''">Jedna litera</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul>
+                      <li [className]="this.testPasswordOneNumber(this.registerUserAccountForm.get('password').value)
+                       ? 'passed-condition': ''">Jedna liczba</li>
+                      <li [className]="this.testPasswordOneSpecialCharacter(this.registerUserAccountForm.get('password').value)
+                       ? 'passed-condition': ''">Jeden znak specjalny (np. $)</li>
+                    </ul>
+                  </div>
+                </div>
+              </mat-hint>
+              <mat-error *ngIf="registerUserAccountForm.get('password').hasError('required')">
+                Hasło jest <strong>wymagane</strong>
+              </mat-error>
+              <mat-error *ngIf="registerUserAccountForm.get('password').hasError('ValidatePasswordLength')">
+                Hasło musi zawierać <strong>więcej niż 6 znaków</strong>
+              </mat-error>
+              <mat-error *ngIf="registerUserAccountForm.get('password').hasError('ValidatePasswordOneLetter')">
+                Hasło musi zawierać <strong>conajmniej jedną literę</strong>
+              </mat-error>
+              <mat-error *ngIf="registerUserAccountForm.get('password').hasError('ValidatePasswordOneNumber')">
+                Hasło musi zawierać <strong>conajmniej jedną cyfrę</strong>
+              </mat-error>
+              <mat-error *ngIf="registerUserAccountForm.get('password').hasError('ValidatePasswordOneSpecialCharacter')">
+                Hasło musi zawierać <strong>conajmniej jeden znak specjalny (np. $)</strong>
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <br>
+            <br>
+            <br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Powtórz hasło</mat-label>
+              <input matInput type="password" placeholder="***********" formControlName="passwordRepeat">
+              <mat-error *ngIf="registerUserAccountForm.get('passwordRepeat').hasError('required')">
+                Potwórzenie hasła jest <strong>wymagane</strong>
+              </mat-error>
+              <mat-error *ngIf="registerUserAccountForm.get('passwordRepeat').hasError('ValidatePasswordsEquality')">
+                Hasła muszą być <strong>identyczne</strong>
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <div class="mt-2 p-2 d-flex flex-row justify-content-between">
+              <button mat-raised-button (click)="onSubmit()">Stwórz konto</button>
+              <button mat-raised-button (click)="clearForm()">Wyczyść formularz</button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+</div>

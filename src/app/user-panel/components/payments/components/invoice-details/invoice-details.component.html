@@ -1,0 +1,71 @@
+<mat-card>
+  <div class="d-flex flex-column justify-content-center align-items-center">
+    <mat-card-header>
+      <mat-card-title class="text-center">
+        Szczegóły faktury
+      </mat-card-title>
+      <mat-card-subtitle class="text-center">
+        Sprawdź informacje dotyczące faktury oraz jej płatności
+      </mat-card-subtitle>
+    </mat-card-header>
+  </div>
+  <mat-card-content class="text-center">
+    <mat-spinner [hidden]="dataFetched" class="m-auto"></mat-spinner>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <form [formGroup]="invoiceDetailsForm" [hidden]="!dataFetched" class="example-form" novalidate>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Numer faktury</mat-label>
+          <input formControlName="invoiceNumber" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Data utworzenia faktury</mat-label>
+          <input formControlName="creationDate" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Nazwa sprzedawcy</mat-label>
+          <input formControlName="sellerName" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Adres sprzedawcy</mat-label>
+          <input formControlName="sellerAddress" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Identyfikator podatkowy sprzedawcy</mat-label>
+          <input formControlName="sellerTaxIdentifier" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Opis faktury</mat-label>
+          <input formControlName="invoiceDescription" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Waluta</mat-label>
+          <input formControlName="currency" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Kwota netto</mat-label>
+          <input formControlName="netAmount" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Kwota podatku</mat-label>
+          <input formControlName="taxAmount" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Kwota brutto</mat-label>
+          <input formControlName="grossAmount" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Adresat faktury</mat-label>
+          <input formControlName="user" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="example-full-width mb-2">
+          <mat-label>Status płatności faktury</mat-label>
+          <input formControlName="paymentStatus" matInput>
+        </mat-form-field>
+
+        <div class="mt-2 p-2 d-flex flex-row justify-content-center">
+          <button (click)="goBack()" color="primary" mat-raised-button mat-raised-button>Wróć do faktur</button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

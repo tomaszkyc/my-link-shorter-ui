@@ -1,0 +1,65 @@
+@media (min-width: 576px){
+
+  .main-page-image {
+    width: 500px;
+  }
+
+  .custom-input-field {
+    width: 300px;
+  }
+
+}
+
+@media (min-width: 768px){
+
+  .main-page-image {
+    width: 700px;
+  }
+
+  .custom-input-field {
+    width: 300px;
+  }
+
+}
+
+@media (min-width: 992px){
+
+  .main-page-image {
+    width: 992px;
+  }
+
+  .custom-input-field {
+    width: 300px;
+  }
+
+}
+
+@media (min-width: 1200px){
+
+  .main-page-image {
+    width: 992px;
+  }
+
+  .custom-input-field {
+    width: 300px;
+  }
+
+
+}
+
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.custom-width {
+  width: 300px;
+}
+
+.custom-font {
+  color: rgba(0,0,0,.54);
+  font-size: 11px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

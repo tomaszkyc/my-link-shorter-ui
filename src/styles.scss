@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+}
+/* Zakomentowana stara paleta kolorów */
+/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+
+/* Import ikon */
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+/* Dodanie customowego stylu */
+@import "~@angular/material/theming";
+@include mat-core();
+
+$candy-app-primary: mat-palette($mat-blue-gray);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$candy-app-warn: mat-palette($mat-red);
+
+$candy-app-theme: mat-light-theme(
+    $candy-app-primary, $candy-app-accent, $candy-app-warn
+);
+
+@include angular-material-theme($candy-app-theme);
+
+
+/* custom styles start */
+.material-custom-table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  .mat-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    display: table;
+    border-collapse: collapse;
+    margin: 0px;
+  }
+  .mat-row,
+  .mat-header-row {
+    display: table-row;
+  }
+  .mat-cell,
+  .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 5px;
+    line-break: unset;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+}
+/* custom styles stop */

@@ -1,0 +1,110 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Twoje linki
+    </mat-card-title>
+    <mat-card-subtitle>
+      Jedno miejsce, by zarządzać wszystkimi linkami.
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="d-flex flex-column">
+      <div class="d-flex flex-row justify-content-end mb-3">
+        <button (click)="openCreateLinkDialog()" color="primary" mat-raised-button>Stwórz nowy link</button>
+      </div>
+
+      <!-- links table start -->
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <mat-form-field class="align-items-start">
+          <mat-label>Filtruj wyniki</mat-label>
+          <input (keyup)="applyFilter($event)" matInput placeholder="Przykład: google.com">
+
+        </mat-form-field>
+        <div class="material-custom-table-responsive">
+        <table [dataSource]="dataSource" class="mat-elevation-z2" mat-table matSort>
+
+          <ng-container matColumnDef="shortLink">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Krótki link</th>
+            <td *matCellDef="let link" mat-cell> {{link.shortLink}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="longLink">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Długi link</th>
+            <td *matCellDef="let link" mat-cell> {{link.longLink}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="creationDate">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Data utworzenia</th>
+            <td *matCellDef="let link" mat-cell> {{link.creationDate | date: 'yyyy-MM-dd HH:mm:ss'}}  </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="expirationDate">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Data wygaśnięcia</th>
+            <td *matCellDef="let link" mat-cell> {{link.expirationDate | date: 'yyyy-MM-dd HH:mm:ss'}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="active">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Czy link aktywny</th>
+            <td *matCellDef="let link" mat-cell>
+              <i *ngIf="link.active" class="fas fa-toggle-on active-link fa-lg" matTooltip="Link aktywny"></i>
+              <i *ngIf="!link.active" class="fas fa-toggle-off inactive-link fa-lg" matTooltip="Link nieaktywny"></i>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th *matHeaderCellDef mat-header-cell> Akcje</th>
+            <td *matCellDef="let link" mat-cell>
+              <a [routerLink]="[link.id, 'edit']">
+                <button class="m-1" color="primary" mat-raised-button>
+                  <mat-icon>edit</mat-icon>
+                  Edytuj
+                </button>
+              </a>
+              <a [routerLink]="[link.id, 'link-activity']">
+                <button class="m-1" mat-raised-button>
+                  <mat-icon>data_usage</mat-icon>
+                  Pokaż aktywność
+                </button>
+              </a>
+              <button (click)="openShowQrCodeDialog(link)" *ngIf="hasAnyAuthority(['premium-user', 'admin'])"
+                      class="m-1"
+                      mat-raised-button>
+                <mat-icon>image</mat-icon>
+                Generuj kod QR
+              </button>
+              <button (click)="openShareLinkDialog(link)" *ngIf="hasAnyAuthority(['premium-user', 'admin'])" class="m-1"
+                      mat-raised-button>
+                <mat-icon>share</mat-icon>
+                Udostępnij
+              </button>
+
+              <button (click)="clickCopyButton()" [cdkCopyToClipboard]="generateShortLinkToExternalUsage(link)"
+                      class="m-1"
+                      mat-raised-button>
+                <mat-icon>file_copy</mat-icon>
+                Skopiuj link
+              </button>
+              <button (click)="openDeleteLinkDialog(link)" class="m-1" color="warn" mat-raised-button>
+                <mat-icon>delete</mat-icon>
+                Usuń
+              </button>
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageSize]="customPageSize" class="my-2"
+                       showFirstLastButtons></mat-paginator>
+      </div>
+
+
+    </div>
+
+  </mat-card-content>
+</mat-card>

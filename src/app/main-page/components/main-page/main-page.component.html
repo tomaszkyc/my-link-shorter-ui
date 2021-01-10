@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+  <div class="d-flex flex-column justify-content-center align-items-center m-2 p-2">
+    <mat-card class="d-flex flex-column justify-content-center align-items-center">
+      <img class="main-page-image img-fluid rounded mx-auto d-block mb-2 p-3" src="assets/images/main-page-image.png" alt="Rysunek pokazujący kursor myszy na pomagańczowym tle, klikający litery www na żółtym tle">
+      <mat-card-header>
+        <mat-card-title>
+          <h3 class="text-center">LinkShorter</h3>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <p class="text-center">Proste i użyteczne narzędzie do <strong>skracania Twoich linków.</strong></p>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="text-center">
+        <form [formGroup]="createLinkForm" novalidate>
+          <div class="d-flex mb-2 flex-column flex-md-row justify-content-around align-items-center">
+            <div>
+              <mat-form-field class="custom-input-field text-center">
+                <mat-label>Tutaj wpisz swój link</mat-label>
+                <input matInput type="url" placeholder="Przykład: www.google.com" formControlName="link">
+                <mat-error *ngIf="createLinkForm.get('link').hasError('pattern')">
+                  Wpisz poprawny link
+                </mat-error>
+                <mat-error class="mt-2" *ngIf="createLinkForm.get('link').hasError('isShortLinkAlreadyShortened')">
+                  Nie możesz skrócić skróconego już linku w naszym serwisie
+                </mat-error>
+                <mat-error class="mt-2" *ngIf="createLinkForm.get('link').hasError('required')">
+                  Podanie linku do skrócenia jest <strong>wymagane</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="mt-4 mt-md-0">
+              <button mat-raised-button class="ml-0 ml-md-3" mat-button (click)="onSubmit()">
+                Skróć
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-footer>
+        <p class="text-center custom-font">
+          Klikając przycisk Skróć zgadzasz się na warunki umieszczone w naszej<a class="text-decoration-none custom-font" [routerLink]="['/pages/privacy']"><strong> Polityce prywatności</strong></a>
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+
+</div>

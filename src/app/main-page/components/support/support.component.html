@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+<div class="container-fluid custom-container-size">
+  <div class="d-flex flex-row justify-content-center my-md-2">
+    <div class="bg-dark text-light flex-fill text-center rounded">
+      <h2>Cześć, <br> jak możemy Ci pomóc?</h2>
+    </div>
+  </div>
+  <div class="d-flex flex-column bg-light text-dark rounded my-md-2">
+
+    <div class="d-flex flex-column text-center">
+      <h3 class="m-3 p-3">Najczęściej zadawane pytania</h3>
+
+      <!-- accordion start -->
+      <div class="accordion" id="questionAccordion">
+        <div class="card">
+          <div class="card-header" id="question-1-question">
+            <h2 class="mb-0">
+              <button (click)="toggleQuestionArrow($event)" aria-controls="question-1-answer"
+                      aria-expanded="true" class="btn btn-block text-left text-decoration-none" data-target="#question-1-answer" data-toggle="collapse"
+                      id="question-1-button" type="button">
+                Czy mogę za darmo skrócić długi link?
+                <i class="fas fa-arrow-up" id="question-1-arrow"></i>
+              </button>
+            </h2>
+          </div>
+          <div aria-labelledby="question-1-question" class="collapse" data-parent="#questionAccordion"
+               id="question-1-answer">
+            <div class="card-body">
+              <p>
+                Tak! Wystarczy, że wejdziesz na <a [routerLink]="['/']" class="text-decoration-none">naszą stronę
+                główną</a> i wpiszesz w pole do skracania swój długi link,
+                a następnie klikniesz przycisk <strong>Skróć link</strong>. Możesz też założyć darmowe konto, gdzie
+                zobaczysz statystyki kliknięcia w Twoje krótkie linki.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="question-2-question">
+            <h2 class="mb-0">
+              <button (click)="toggleQuestionArrow($event)" aria-controls="question-2-answer"
+                      aria-expanded="true" class="btn btn-block text-left text-decoration-none" data-target="#question-2-answer" data-toggle="collapse"
+                      id="question-2-button" type="button">
+                Jak długo jest ważny darmowo skrócony link?
+                <i class="fas fa-arrow-up" id="question-2-arrow"></i>
+              </button>
+            </h2>
+          </div>
+          <div aria-labelledby="question-2-question" class="collapse" data-parent="#questionAccordion"
+               id="question-2-answer">
+            <div class="card-body">
+              <p>
+                Darmowo skrócony link jest ważny przez 24h od momentu jego skrócenia.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- accordion end-->
+    </div>
+
+  </div>
+
+</div>
